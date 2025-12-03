@@ -5,10 +5,7 @@ public class Book extends LibraryItem {
     public Book(int id, String title, String author) {
         super(id, title);
         this.author = author;
-
-
-        this.borrowDuration = 14;
-        this.penaltyPerDay = 0.50;
+        
     }
 
     @Override

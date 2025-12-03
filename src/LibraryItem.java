@@ -10,8 +10,8 @@ public abstract class LibraryItem {
     protected LocalDate borrowDate;
     protected LocalDate returnDate;
 
-    protected int borrowDuration = 7;
-    protected double penaltyPerDay = 1.0;
+    protected final int borrowDuration = 4;
+    protected final  double  penaltyPerDay = 2.0;
 
     public LibraryItem(int id, String title) {
         this.id = id;
