@@ -11,7 +11,7 @@ public abstract class LibraryItem {
     protected LocalDate returnDate;
 
     protected final int borrowDuration = 4;
-    protected final  double  penaltyPerDay = 2.0;
+    protected final double penaltyPerDay = 2.0;
 
     public LibraryItem(int id, String title) {
         this.id = id;
@@ -27,18 +27,17 @@ public abstract class LibraryItem {
         System.out.println(title + " borrowed on " + borrowDate);
     }
 
-    public double returnItem() {
+    public void returnItem() {
         if (!isBorrowed) {
             System.out.println(title + " was never borrowed.");
-            return 0;
+            return;
         }
 
         returnDate = LocalDate.now();
         isBorrowed = false;
 
-        long daysHeld = ChronoUnit.DAYS.between(borrowDate, returnDate);
-        long lateDays = daysHeld - borrowDuration;
-
+        double daysHeld = ChronoUnit.DAYS.between(borrowDate, returnDate);
+        double lateDays = daysHeld - borrowDuration;
 
         double penalty;
         if (lateDays > 0) {
@@ -51,7 +50,6 @@ public abstract class LibraryItem {
         System.out.println("Days borrowed: " + daysHeld);
         System.out.println("Penalty: $" + penalty);
 
-        return penalty;
     }
 
     public abstract void printInfo();

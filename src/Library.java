@@ -1,54 +1,79 @@
-public class Library {
+import java.util.ArrayList;
 
-    private LibraryItem[] items;
-    private static int count = 0;
+public class Library implements Manage {
+    private ArrayList<LibraryItem> items;
 
-    public Library(int size) {
-        items = new LibraryItem[size];
-    }
-
-    public void addItem(LibraryItem item) {
-        if (count >= items.length) {
-            System.out.println("Library full can't add more items.");
-            return;
-        }
-        items[count++] = item;
-        System.out.println(item.title + " added to the library.");
-    }
-
-//    public LibraryItem getItemById(int id) {
-//        for (int i = 0; i < count; i++) {
-//            if (items[i].id == id) {
-//
-//                return items[i];
-//            }
-//        }
-//        System.out.println("Item not found.");
-//        return null;
-//    }
-    public void borrowById(int id) {
-        for (int i = 0; i < count; i++) {
-            if (items[i].id == id) {
-                items[i].borrow();
-                return;
-            }
-        }
-        System.out.println("Item not found.");
-    }
-    public void returnById(int id) {
-        for (int i = 0; i < count; i++) {
-            if (items[i].id == id) {
-                items[i].returnItem();
-                return;
-            }
-        }
-        System.out.println("Item not found.");
+    public Library() {
+        items = new ArrayList<LibraryItem>();
     }
 
     public void listItems() {
-        System.out.println("\n-- Library Items --");
-        for (int i = 0; i < count; i++) {
-            items[i].printInfo();
+        for (LibraryItem item : items)
+            item.printInfo();
+    }
+
+    @Override
+    public void addItem(LibraryItem item) {
+
+        items.add(item);
+        System.out.println(item.title + "has been added to library ");
+    }
+
+    @Override
+    public LibraryItem findById(int id) {
+        for (LibraryItem item : items)
+            if (item.id == id) {
+                return item;
+            }
+        System.out.println("item not found");
+
+        return null;
+    }
+
+    @Override
+    public LibraryItem findByTitle(String title) {
+        for (LibraryItem item : items)
+            if (item.title.equalsIgnoreCase(title)) {
+                return item;
+
+            }
+        System.out.println("item not found");
+        return null;
+    }
+
+    @Override
+    public void borrowById(int id) {
+        LibraryItem item = findById(id);
+        if (item != null) {
+            item.borrow();
+
+        }
+
+    }
+
+    @Override
+    public void borrowByTitle(String title) {
+        LibraryItem item = findByTitle(title);
+        if (item != null) {
+            item.borrow();
+        }
+    }
+
+    @Override
+    public void returnById(int id) {
+        LibraryItem item = findById(id);
+        if (item != null) {
+            item.returnItem();
+        }
+    }
+
+    @Override
+    public void returnByTitle(String title) {
+        LibraryItem item = findByTitle(title);
+        if (item != null) {
+            item.returnItem();
         }
     }
 }
+
+
